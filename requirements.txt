@@ -13,3 +13,5 @@ groq
 web3
 schedule
 python_dotenv
+ccxt
+pandas

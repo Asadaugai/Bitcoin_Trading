@@ -1,5 +1,209 @@
-# Without TRB
 import os
+from news_fetcher import main as news_fetch
+from dotenv import load_dotenv
+load_dotenv()
+from groq import Groq
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+def analyze_bitcoin_metrics(data):
+    """
+    Predict Bitcoin trading metrics using Groq's LLM based on news and market data
+    Args:
+        data: Dictionary with articles (list) and market_data (dict)
+    Returns:
+        Formatted string with trading metrics
+    """
+    articles_list = data["articles"]
+    market_data = data["market_data"]
+    
+    prompt = """
+You are a financial analyst specializing in Bitcoin trading. Your task is to analyze recent news articles and market data to predict five critical trading metrics for Bitcoin.
+
+### Instructions:
+1. Use news articles to assess market sentiment and events, prioritizing:
+   - Regulatory actions (e.g., bans, approvals): High impact
+   - Institutional moves (e.g., ETF approvals, corporate adoption): High impact
+   - Market trends (e.g., price movements, adoption): Moderate impact
+   - General crypto news (e.g., tech updates): Low impact
+2. Integrate market data to inform predictions:
+   - Current Price: Current Bitcoin price
+   - Volume: 24-hour average trading volume
+   - Volatility: Standard deviation of returns (%)
+   - Price Change: 24-hour price change (%)
+   - Bid-Ask Spread: Spread between top bid and ask (%)
+   - RSI: Relative Strength Index (14-period, 0-100)
+   - ATR: Average True Range as % of price (14-period)
+3. Predict the following metrics:
+   - Buy Price: Recommended entry price, near current price or support level
+   - Stop-Loss Price: Exit price below Buy Price to limit losses, based on ATR/volatility
+   - Take-Profit Price: Exit price above Buy Price to secure profits, based on RSI/price trends
+   - Stop-Loss Zone %: Percentage range below Buy Price, derived from ATR/volatility
+   - Profit Zone %: Percentage range above Buy Price, derived from ATR/volatility
+4. Adjust metrics dynamically:
+   - High volatility/ATR: Widen Stop-Loss/Profit Zones
+   - High RSI (>70): Conservative Take-Profit; Low RSI (<30): Aggressive Buy Price
+   - High volume/price change: Stronger trend confirmation
+   - Narrow bid-ask spread: Higher liquidity, tighter zones
+
+### Market Data:
+- Current Bitcoin Price: ${current_price}
+- 24-Hour Average Volume: {volume}
+- 24-Hour Volatility: {volatility:.2f}%
+- 24-Hour Price Change: {price_change:.2f}%
+- Bid-Ask Spread: {bid_ask_spread:.2f}%
+- RSI (14-period): {rsi:.2f}
+- ATR (% of price): {atr:.2f}%
+
+### Output Format:
+Return **ONLY** this exact format with no additional text, comments, or explanations. Use ': ' as the separator and numeric values (dollars for prices, percentages for zones):
+Buy Price: $P
+Stop-Loss Price: $S
+Take-Profit Price: $T
+Stop-Loss Zone %: SZ%
+Profit Zone %: PZ%
+
+### Example Output:
+Buy Price: $70000
+Stop-Loss Price: $68000
+Take-Profit Price: $72000
+Stop-Loss Zone %: 2.86%
+Profit Zone %: 2.86%
+
+### Articles:
+""".format(**market_data)
+
+    for i, article in enumerate(articles_list, 1):
+        if article.strip():
+            prompt += f"\nArticle {i}:\n{article.strip()}\n"
+
+    print("\n\n===== FINAL PROMPT SENT TO LLM =====\n")
+    print(prompt)
+    print("\n===== END OF PROMPT =====\n\n")
+
+    response = client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama3-70b-8192",
+        temperature=0,
+    )
+
+    return response.choices[0].message.content.strip()
+
+if __name__ == "__main__":
+    data = news_fetch()
+    metrics_result = analyze_bitcoin_metrics(data)
+    print("\n===== BITCOIN TRADING METRICS =====")
+    print(metrics_result)
+
+
+
+'''import os
+from news_fetcher import main as news_fetch
+from dotenv import load_dotenv
+load_dotenv()
+from groq import Groq
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+def analyze_bitcoin_sentiment(data):
+    """
+    Analyze Bitcoin sentiment and predict trading metrics using Groq's LLM
+    Args:
+        data: Dictionary with articles (list) and market_data (dict)
+    Returns:
+        Formatted string with sentiment and trading metrics
+    """
+    articles_list = data["articles"]
+    market_data = data["market_data"]
+    
+    prompt = """
+You are a financial analyst specializing in Bitcoin markets. Your task is to analyze recent news articles and market data to assess Bitcoin market sentiment and predict trading metrics.
+
+### Instructions:
+1. Analyze the sentiment of the provided news articles, considering:
+   - Regulatory actions (very high impact)
+   - Institutional moves (high impact)
+   - Market data/technical indicators (moderate impact)
+   - Broader blockchain news (low impact)
+2. Use market data (current price, volume, volatility) to inform predictions.
+3. Classify overall sentiment into five categories (summing to 100%):
+   - very bullish
+   - bullish
+   - neutral
+   - bearish
+   - very bearish
+4. Predict trading metrics based on sentiment and market data:
+   - Buy Price: Recommended price to enter a trade
+   - Stop-Loss Price: Price to exit to limit losses
+   - Take-Profit Price: Price to exit to secure profits
+   - Stop-Loss Zone %: Percentage range below Buy Price, based on volatility
+   - Profit Zone %: Percentage range above Buy Price, based on volatility
+5. Adjust metrics dynamically based on market conditions (e.g., high volatility widens zones, high volume strengthens sentiment).
+
+### Market Data:
+- Current Bitcoin Price: ${current_price}
+- 24-Hour Average Volume: {volume}
+- 24-Hour Volatility (std of returns): {volatility:.2f}%
+
+### Output Format:
+Return **ONLY** the following format with no additional text, comments, explanations, or deviations. Use exactly ': ' as the separator and ensure all values are numeric (percentages for sentiment and zones, dollar amounts for prices):
+very bullish: X%
+bullish: Y%
+neutral: Z%
+bearish: A%
+very bearish: B%
+Buy Price: $P
+Stop-Loss Price: $S
+Take-Profit Price: $T
+Stop-Loss Zone %: SZ%
+Profit Zone %: PZ%
+
+### Example Output:
+very bullish: 20%
+bullish: 30%
+neutral: 40%
+bearish: 10%
+very bearish: 0%
+Buy Price: $70000
+Stop-Loss Price: $68000
+Take-Profit Price: $72000
+Stop-Loss Zone %: 2.86%
+Profit Zone %: 2.86%
+
+### Articles:
+""".format(**market_data)
+
+    for i, article in enumerate(articles_list, 1):
+        if article.strip():
+            prompt += f"\nArticle {i}:\n{article.strip()}\n"
+
+    print("\n\n===== FINAL PROMPT SENT TO LLM =====\n")
+    print(prompt)
+    print("\n===== END OF PROMPT =====\n\n")
+
+    response = client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama3-70b-8192",
+        temperature=0,
+    )
+
+    return response.choices[0].message.content.strip()
+
+if __name__ == "__main__":
+    data = news_fetch()
+    sentiment_result = analyze_bitcoin_sentiment(data)
+    print("\n===== BITCOIN MARKET SENTIMENT AND TRADING METRICS =====")
+    print(sentiment_result)'''
+
+
+
+
+
+
+
+
+# Without TRB
+'''import os
 from news_fetcher import main as news_fetch
 from dotenv import load_dotenv
 load_dotenv()
@@ -84,7 +288,7 @@ if __name__ == "__main__":
     # Print final sentiment output
     print("\n===== BITCOIN MARKET SENTIMENT =====")
     print(sentiment_result)
-
+'''
 
 
 

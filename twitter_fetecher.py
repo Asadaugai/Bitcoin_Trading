@@ -5,6 +5,7 @@ from selenium import webdriver
 from transformers import TextClassificationPipeline, AutoModelForSequenceClassification, AutoTokenizer
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from binance_data import fetch_binance_data
 import time
 
 def init_driver(headless=False):
@@ -41,12 +42,18 @@ def main():
         for i in users:
             tweets = get_elon_musk_tweets(i, driver, count=5)
             tweet_dic[i] = tweets
-       
+
+
+        
+        # Fetch market data
+        market_data = fetch_binance_data()
+        return {"tweets": tweet_dic, "market_data": market_data}
         
            
         #print(tweet_dic)
         #print(type(tweet_dic))
-        return tweet_dic
+
+        #return tweet_dic
         
     finally:
         driver.quit()
@@ -55,6 +62,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
 
 
 

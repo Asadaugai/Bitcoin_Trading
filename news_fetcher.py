@@ -2,6 +2,7 @@
 #Fetch the aritcles info from the multiple news outlet using the rss_feed
 # Without TRB
 import feedparser
+from binance_data import fetch_binance_data
 
 def parse_rss_feed(url, limit=5):
     feed = feedparser.parse(url)
@@ -66,7 +67,12 @@ def main():
 
             articles_list.append(article['text'])
 
-    return articles_list
+
+    # Fetch market data from Binance
+    market_data = fetch_binance_data()
+    return {"articles": articles_list, "market_data": market_data}
+
+    #return articles_list
         
 
 
