@@ -1,0 +1,15 @@
+transformers
+torch
+feedparser
+requests
+beautifulsoup4
+selenium 
+webdriver-manager
+
+
+snscrape
+groq
+
+web3
+schedule
+python_dotenv
