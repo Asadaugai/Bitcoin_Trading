@@ -1,49 +1,3 @@
-'''import ccxt
-import pandas as pd
-from datetime import datetime, timedelta
-
-def fetch_binance_data(symbol='BTC/USDT', timeframe='1h', limit=24):
-    """
-    Fetch real-time Bitcoin price, volume, and volatility from Binance API
-    Args:
-        symbol: Trading pair (default: BTC/USDT)
-        timeframe: Candlestick timeframe (default: 1 hour)
-        limit: Number of data points (default: 24 for last 24 hours)
-    Returns:
-        Dictionary with current_price, volume, and volatility
-    """
-    try:
-        # Initialize Binance exchange
-        exchange = ccxt.binance()
-        
-        # Fetch OHLCV (Open, High, Low, Close, Volume) data
-        ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
-        
-        # Extract prices and volumes
-        prices = [candle[4] for candle in ohlcv]  # Closing prices
-        volumes = [candle[5] for candle in ohlcv]  # Volumes
-        
-        # Calculate metrics
-        current_price = prices[-1]  # Latest price
-        avg_volume = sum(volumes) / len(volumes)  # Average 24-hour volume
-        
-        # Calculate volatility (standard deviation of returns)
-        returns = [(prices[i] - prices[i-1]) / prices[i-1] for i in range(1, len(prices))]
-        volatility = pd.Series(returns).std() * 100  # Volatility in percentage
-        
-        return {
-            "current_price": current_price,
-            "volume": avg_volume,
-            "volatility": volatility
-        }
-    except Exception as e:
-        print(f"Error fetching Binance data: {e}")
-        return {"current_price": 0, "volume": 0, "volatility": 0}
-
-if __name__ == "__main__":
-    data = fetch_binance_data()
-    print("Binance Data:", data)'''
-
 
 
 
@@ -126,3 +80,59 @@ def fetch_binance_data(symbol='BTC/USDT', timeframe='1h', limit=24):
 if __name__ == "__main__":
     data = fetch_binance_data()
     print("Binance Data:", data)
+
+
+
+
+
+
+
+
+
+
+    '''import ccxt
+import pandas as pd
+from datetime import datetime, timedelta
+
+def fetch_binance_data(symbol='BTC/USDT', timeframe='1h', limit=24):
+    """
+    Fetch real-time Bitcoin price, volume, and volatility from Binance API
+    Args:
+        symbol: Trading pair (default: BTC/USDT)
+        timeframe: Candlestick timeframe (default: 1 hour)
+        limit: Number of data points (default: 24 for last 24 hours)
+    Returns:
+        Dictionary with current_price, volume, and volatility
+    """
+    try:
+        # Initialize Binance exchange
+        exchange = ccxt.binance()
+        
+        # Fetch OHLCV (Open, High, Low, Close, Volume) data
+        ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
+        
+        # Extract prices and volumes
+        prices = [candle[4] for candle in ohlcv]  # Closing prices
+        volumes = [candle[5] for candle in ohlcv]  # Volumes
+        
+        # Calculate metrics
+        current_price = prices[-1]  # Latest price
+        avg_volume = sum(volumes) / len(volumes)  # Average 24-hour volume
+        
+        # Calculate volatility (standard deviation of returns)
+        returns = [(prices[i] - prices[i-1]) / prices[i-1] for i in range(1, len(prices))]
+        volatility = pd.Series(returns).std() * 100  # Volatility in percentage
+        
+        return {
+            "current_price": current_price,
+            "volume": avg_volume,
+            "volatility": volatility
+        }
+    except Exception as e:
+        print(f"Error fetching Binance data: {e}")
+        return {"current_price": 0, "volume": 0, "volatility": 0}
+
+if __name__ == "__main__":
+    data = fetch_binance_data()
+    print("Binance Data:", data)'''
+
