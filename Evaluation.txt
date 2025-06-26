@@ -1,0 +1,8 @@
+True : Bullish
+True : Bullish
+True : Bullish
+True : Bullish
+Flase
+Flase
+Flase
+True : Bullish

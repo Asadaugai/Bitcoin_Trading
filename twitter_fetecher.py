@@ -35,7 +35,8 @@ def get_elon_musk_tweets(username, driver, count=5):
 
 def main():
     driver = init_driver()
-    users =['realDonaldTrump','saylor','jack','cz_binance','VitalikButerin','aantonop','jpmorgan','nayibbukele','CathieDWood']
+    #users =['realDonaldTrump','saylor','jack','cz_binance','VitalikButerin','aantonop','jpmorgan','nayibbukele','CathieDWood']
+    users =['elonmusk','VitalikButerin','saylor','cz_binance','jack','APompliano','100trillionUSD','brian_armstrong','BarrySilbert','tyler','ErikVoorhees','cameron','maxkeiser','cryptomanran','adam3us','CaitlinLong_']
 
     tweet_dic = {}
     try:

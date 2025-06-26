@@ -15,3 +15,4 @@ schedule
 python_dotenv
 ccxt
 pandas
+schedule
