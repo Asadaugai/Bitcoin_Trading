@@ -2,8 +2,28 @@
 # Without TRB
 import feedparser
 from binance_data import fetch_binance_data
+import re
+
+def strip_html_tags(text):
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', text)
 
 def parse_rss_feed(url, limit=5):
+    feed = feedparser.parse(url)
+    articles = []
+    for entry in feed.entries[:limit]:
+        title = entry.title
+        summary = strip_html_tags(entry.get('summary', ''))
+        text = f"{title}. {summary}"
+        articles.append({
+            "title": title,
+            "summary": summary,
+            "text": text,
+            "link": entry.link
+        })
+    return articles
+
+'''def parse_rss_feed(url, limit=5):
     feed = feedparser.parse(url)
     articles = []
     for entry in feed.entries[:limit]:
@@ -16,7 +36,9 @@ def parse_rss_feed(url, limit=5):
             "text": text,
             "link": entry.link
         })
-    return articles
+    return articles'''
+
+
 
 def fetch_coindesk_articles(limit=5):
     return parse_rss_feed("https://www.coindesk.com/arc/outboundfeeds/rss/", limit)
@@ -95,26 +117,26 @@ def fetch_forbes_digital_assets_articles(limit=5):
 #news_outlets_list = [fetch_coindesk_articles,fetch_cointelegraph_articles,fetch_decrypt_articles,fetch_cryptoslate_articles,fetch_beincrypto_articles,fetch_utoday_articles,fetch_cnbc_crypto_articles]
 news_outlets_list = [
     #fetch_coindesk_articles,
-    #fetch_cointelegraph_articles, # Meta Data with content
+    fetch_cointelegraph_articles, # Meta Data with content
     #fetch_bitcoinmagazine_articles,
     fetch_decrypt_articles,
     #fetch_theblock_articles,
-    #fetch_cryptoslate_articles, # Meta Data with content
-    #fetch_beincrypto_articles,  # Meta Data with content
+    fetch_cryptoslate_articles, # Meta Data with content
+    fetch_beincrypto_articles,  # Meta Data with content
     fetch_utoday_articles,      # Short Content
     fetch_cnbc_crypto_articles, # Short content
     #fetch_cryptopotato_articles,
     fetch_bitcoinist_articles,
     fetch_newsbtc_articles,
-    #fetch_coinjournal_articles, # Meta Data with Content
-    #fetch_cryptonews_articles, # Meta Data with Content
-    #fetch_ambcrypto_articles, # Meta Data with Content
+    fetch_coinjournal_articles, # Meta Data with Content
+    fetch_cryptonews_articles, # Meta Data with Content
+    fetch_ambcrypto_articles, # Meta Data with Content
     #fetch_coingape_articles,
-    #fetch_cryptobriefing_articles, # Meta Data with Content
-    #fetch_blockonomi_articles, # Meta Data with Content
-    #fetch_bitcoinik_articles, # Meta Data with Content
-    #fetch_bitcoincom_articles, # Meta Data with Content
-    #fetch_bitdegree_articles, # Meta Data with content
+    fetch_cryptobriefing_articles, # Meta Data with Content
+    fetch_blockonomi_articles, # Meta Data with Content
+    fetch_bitcoinik_articles, # Meta Data with Content
+    fetch_bitcoincom_articles, # Meta Data with Content
+    fetch_bitdegree_articles, # Meta Data with content
     #fetch_forbes_digital_assets_articles
 ]
 
@@ -128,7 +150,7 @@ def main():
 
         for article in articles:
             #print('Link',article["link"])
-            #print('Text',article["text"])
+            print('Text',article["text"])
             #print('')
             #print('')
 
