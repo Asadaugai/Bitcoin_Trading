@@ -80,7 +80,9 @@ very bearish: 0%
 
     response = client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
-        model="llama3-70b-8192",
+        #model="llama3-70b-8192",
+        model="Llama3-8b-8192",
+        
         temperature=0,
     )
 

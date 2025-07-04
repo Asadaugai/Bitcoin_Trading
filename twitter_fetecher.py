@@ -36,7 +36,8 @@ def get_elon_musk_tweets(username, driver, count=5):
 def main():
     driver = init_driver()
     #users =['realDonaldTrump','saylor','jack','cz_binance','VitalikButerin','aantonop','jpmorgan','nayibbukele','CathieDWood']
-    users =['elonmusk','VitalikButerin','saylor','cz_binance','jack','APompliano','100trillionUSD','brian_armstrong','BarrySilbert','tyler','ErikVoorhees','cameron','maxkeiser','cryptomanran','adam3us','CaitlinLong_']
+    #users =['elonmusk','VitalikButerin','saylor','cz_binance','jack','APompliano','100trillionUSD','brian_armstrong','BarrySilbert','tyler','ErikVoorhees','cameron','maxkeiser','cryptomanran','adam3us','CaitlinLong_']
+    users =['cryptomanran']
 
     tweet_dic = {}
     try:
@@ -48,10 +49,11 @@ def main():
         
         # Fetch market data
         market_data = fetch_binance_data()
+        print(tweet_dic)
         return {"tweets": tweet_dic, "market_data": market_data}
         
            
-        #print(tweet_dic)
+        
         #print(type(tweet_dic))
 
         #return tweet_dic
@@ -94,9 +96,9 @@ def init_driver(headless=False):
     return driver
 
 def get_elon_musk_tweets(driver, count=5):
-    #url = "https://x.com/elonmusk"
+    url = "https://x.com/elonmusk"
     #url = "https://x.com/realDonaldTrump"
-    url = "https://x.com/jpmorgan"
+    #url = "https://x.com/jpmorgan"
     driver.get(url)
     time.sleep(5)  # Wait for tweets to load
 
@@ -118,6 +120,8 @@ def main():
 
 if __name__ == "__main__":
     main()'''
+
+
 
 
 
@@ -157,8 +161,8 @@ def get_user_tweets(user_id, limit=5):
 
 # Fetch Elon Musk's tweets
 def get_elon_tweets(limit=5):
-    #username = "realDonaldTrump"
-    username = "xai"
+    username = "realDonaldTrump"
+    #username = "xai"
     print(f"\n🔍 Tweets by @{username}:")
     user_id = get_user_id(username)
     all_tweets = []

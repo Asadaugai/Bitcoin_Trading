@@ -1,4 +1,3 @@
-
 #Fetch the aritcles info from the multiple news outlet using the rss_feed
 # Without TRB
 import feedparser
@@ -44,13 +43,81 @@ def fetch_beincrypto_articles(limit=5):
 def fetch_utoday_articles(limit=5):
     return parse_rss_feed("https://u.today/rss", limit)
 
-
 def fetch_cnbc_crypto_articles(limit=5):
     return parse_rss_feed("https://www.cnbc.com/id/10000664/device/rss/rss.html", limit)
 
 
+
+# New functions for additional sources
+def fetch_cryptopotato_articles(limit=5):
+    return parse_rss_feed("https://cryptopotato.com/feed/", limit)
+
+def fetch_bitcoinist_articles(limit=5):
+    return parse_rss_feed("https://bitcoinist.com/feed/", limit)
+
+def fetch_newsbtc_articles(limit=5):
+    return parse_rss_feed("https://www.newsbtc.com/feed/", limit)
+
+def fetch_coinjournal_articles(limit=5):
+    return parse_rss_feed("https://coinjournal.net/feed/", limit)
+
+def fetch_cryptonews_articles(limit=5):
+    return parse_rss_feed("https://www.cryptonews.com/feed/", limit)
+
+def fetch_ambcrypto_articles(limit=5):
+    return parse_rss_feed("https://www.ambcrypto.com/feed/", limit)
+
+def fetch_coingape_articles(limit=5):
+    return parse_rss_feed("https://coingape.com/feed/", limit)
+
+def fetch_cryptobriefing_articles(limit=5):
+    return parse_rss_feed("https://cryptobriefing.com/feed/", limit)
+
+def fetch_blockonomi_articles(limit=5):
+    return parse_rss_feed("https://blockonomi.com/feed/", limit)
+
+def fetch_bitcoinik_articles(limit=5):
+    return parse_rss_feed("https://www.bitcoinik.com/feed/", limit)
+
+def fetch_bitcoincom_articles(limit=5):
+    return parse_rss_feed("https://news.bitcoin.com/feed/", limit)
+
+def fetch_bitdegree_articles(limit=5):
+    return parse_rss_feed("https://www.bitdegree.org/crypto/news/rss", limit)
+
+def fetch_forbes_digital_assets_articles(limit=5):
+    return parse_rss_feed("https://www.forbes.com/digital-assets/feed/", limit)
+
+
+
+
 # main function to get the articles from multiple news outlet
-news_outlets_list = [fetch_coindesk_articles,fetch_cointelegraph_articles,fetch_decrypt_articles,fetch_cryptoslate_articles,fetch_beincrypto_articles,fetch_utoday_articles,fetch_cnbc_crypto_articles]
+#news_outlets_list = [fetch_coindesk_articles,fetch_cointelegraph_articles,fetch_decrypt_articles,fetch_cryptoslate_articles,fetch_beincrypto_articles,fetch_utoday_articles,fetch_cnbc_crypto_articles]
+news_outlets_list = [
+    #fetch_coindesk_articles,
+    #fetch_cointelegraph_articles, # Meta Data with content
+    #fetch_bitcoinmagazine_articles,
+    fetch_decrypt_articles,
+    #fetch_theblock_articles,
+    #fetch_cryptoslate_articles, # Meta Data with content
+    #fetch_beincrypto_articles,  # Meta Data with content
+    fetch_utoday_articles,      # Short Content
+    fetch_cnbc_crypto_articles, # Short content
+    #fetch_cryptopotato_articles,
+    fetch_bitcoinist_articles,
+    fetch_newsbtc_articles,
+    #fetch_coinjournal_articles, # Meta Data with Content
+    #fetch_cryptonews_articles, # Meta Data with Content
+    #fetch_ambcrypto_articles, # Meta Data with Content
+    #fetch_coingape_articles,
+    #fetch_cryptobriefing_articles, # Meta Data with Content
+    #fetch_blockonomi_articles, # Meta Data with Content
+    #fetch_bitcoinik_articles, # Meta Data with Content
+    #fetch_bitcoincom_articles, # Meta Data with Content
+    #fetch_bitdegree_articles, # Meta Data with content
+    #fetch_forbes_digital_assets_articles
+]
+
 def main():
     articles_list = []
    
@@ -78,6 +145,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
 
 
 
@@ -148,11 +222,29 @@ if __name__ == "__main__":
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Fetch the aritcles info from the single news outlet using the rss_feed
 '''import feedparser
 
 def fetch_latest_coindesk_articles(limit=5):
-    url = "https://cointelegraph.com/rss"
+    url = "https://cryptoslate.com/feed"
     feed = feedparser.parse(url)
 
     articles = []
@@ -172,18 +264,6 @@ def fetch_latest_coindesk_articles(limit=5):
     return articles
 
 fetch_latest_coindesk_articles()'''
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
