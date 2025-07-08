@@ -3,9 +3,10 @@ from news_fetcher import main as news_fetch
 from twitter_fetecher import main as tweet_fetch
 from llm_news_Fetecher import analyze_bitcoin_sentiment as analyze_news
 from llm_tweets import analyze_bitcoin_sentiment as analyze_tweets
-from binance_data import fetch_binance_data as binance_info
+from binance_data import fetch_binance_metrics as binance_info
 import schedule
 import time
+from datetime import datetime
 
 def parse_sentiment(output):
     """Parse LLM output into a dictionary of sentiment percentages"""
@@ -34,7 +35,7 @@ def main():
         previous_price = float(file.read().strip())
 
     binance_data = binance_info()
-    current_price = binance_data["current_price"]
+    current_price = binance_data["current_price_1h"]
     with open("CurrentPrice.txt", "w") as file:
         file.write(str(current_price))
 
@@ -72,6 +73,13 @@ def main():
     else:
         with open("Evaluation.txt", "a") as file:
             file.write("Flase\n")'''
+    
+    # Save sentiment output to a text file with timestamp
+    with open("SentimentOutput.txt", "a") as file:
+        file.write(f"\n===== FINAL BITCOIN MARKET SENTIMENT =====\n")
+        file.write(f"TIMESTAMP ===== ({datetime.now().strftime('%Y-%m-%d %H:%M:%S')})\n")
+        for key, value in combined_sentiment.items():
+            file.write(f"{key}: {value:.2f}%\n")
 
     
     print("\n===== FINAL BITCOIN MARKET SENTIMENT =====")
@@ -79,7 +87,7 @@ def main():
         print(f"{key}: {value:.2f}%")
 
 if __name__ == "__main__":
-    schedule.every(1).minutes.do(main)
+    schedule.every(5).minutes.do(main)
     while True:
         schedule.run_pending()
         time.sleep(3)

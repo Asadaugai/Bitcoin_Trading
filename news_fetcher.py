@@ -1,7 +1,7 @@
 #Fetch the aritcles info from the multiple news outlet using the rss_feed
 # Without TRB
 import feedparser
-from binance_data import fetch_binance_data
+from binance_data import fetch_binance_metrics
 import re
 
 def strip_html_tags(text):
@@ -116,28 +116,33 @@ def fetch_forbes_digital_assets_articles(limit=5):
 # main function to get the articles from multiple news outlet
 #news_outlets_list = [fetch_coindesk_articles,fetch_cointelegraph_articles,fetch_decrypt_articles,fetch_cryptoslate_articles,fetch_beincrypto_articles,fetch_utoday_articles,fetch_cnbc_crypto_articles]
 news_outlets_list = [
-    #fetch_coindesk_articles,
-    fetch_cointelegraph_articles, # Meta Data with content
-    #fetch_bitcoinmagazine_articles,
-    fetch_decrypt_articles,
-    #fetch_theblock_articles,
-    fetch_cryptoslate_articles, # Meta Data with content
-    fetch_beincrypto_articles,  # Meta Data with content
-    fetch_utoday_articles,      # Short Content
-    fetch_cnbc_crypto_articles, # Short content
-    #fetch_cryptopotato_articles,
-    fetch_bitcoinist_articles,
-    fetch_newsbtc_articles,
-    fetch_coinjournal_articles, # Meta Data with Content
-    fetch_cryptonews_articles, # Meta Data with Content
+    
+
+    #fetch_cointelegraph_articles, # Meta Data with content
+    #fetch_decrypt_articles,
+    #fetch_cryptoslate_articles, # Meta Data with content
+    #fetch_beincrypto_articles,  # Meta Data with content
+    #fetch_utoday_articles,      # Short Content
+    #fetch_cnbc_crypto_articles, # Short content
+
+    #fetch_bitcoinist_articles,
+    #fetch_newsbtc_articles,
+    #fetch_coinjournal_articles, # Meta Data with Content
+    #fetch_cryptonews_articles, # Meta Data with Content
     fetch_ambcrypto_articles, # Meta Data with Content
-    #fetch_coingape_articles,
+
     fetch_cryptobriefing_articles, # Meta Data with Content
     fetch_blockonomi_articles, # Meta Data with Content
     fetch_bitcoinik_articles, # Meta Data with Content
     fetch_bitcoincom_articles, # Meta Data with Content
     fetch_bitdegree_articles, # Meta Data with content
-    #fetch_forbes_digital_assets_articles
+
+    #fetch_forbes_digital_assets_articles # Not Working
+    #fetch_coingape_articles, # Not Working
+    #fetch_cryptopotato_articles, # Not Working
+    #fetch_theblock_articles, # Not Working
+    #fetch_bitcoinmagazine_articles, # Not Working
+    #fetch_coindesk_articles, # Not Working
 ]
 
 def main():
@@ -158,7 +163,7 @@ def main():
 
 
     # Fetch market data from Binance
-    market_data = fetch_binance_data()
+    market_data = fetch_binance_metrics()
     return {"articles": articles_list, "market_data": market_data}
 
     #return articles_list

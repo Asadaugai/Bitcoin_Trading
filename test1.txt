@@ -1,0 +1,8 @@
+Last 4 Hours:
+ - Current Bitcoin Price: ${current_price_4h}
+ - 4H Average Volume: {volume_4h}
+ - 4H Volatility: {volatility_4h:.2f}%
+ - 4H Price Change: {price_change_4h:.2f}%
+ - 4H Bid-Ask Spread: {bid_ask_spread:.2f}%
+ - 4H RSI: {rsi_4h:.2f}
+ - 4H ATR (% of price): {atr_4h:.2f}%

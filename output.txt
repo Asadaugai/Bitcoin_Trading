@@ -1,0 +1,19 @@
+very bullish: 30%
+bullish: 25%
+neutral: 20%
+bearish: 15%
+very bearish: 10%
+
+
+very bullish: 22.50%
+bullish: 35.00%
+neutral: 20.00%
+bearish: 12.50%
+very bearish: 10.00%
+
+
+very bullish: 22.50%
+bullish: 35.00%
+neutral: 20.00%
+bearish: 15.00%
+very bearish: 7.50%

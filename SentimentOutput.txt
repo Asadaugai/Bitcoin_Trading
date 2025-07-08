@@ -1,0 +1,48 @@
+
+===== FINAL BITCOIN MARKET SENTIMENT =====
+TIMESTAMP ===== (2025-07-05 06:02:38)
+very bullish: 20.00%
+bullish: 35.00%
+neutral: 22.50%
+bearish: 15.00%
+very bearish: 7.50%
+
+===== FINAL BITCOIN MARKET SENTIMENT =====
+TIMESTAMP ===== (2025-07-05 06:08:40)
+very bullish: 30.00%
+bullish: 30.00%
+neutral: 22.50%
+bearish: 10.00%
+very bearish: 7.50%
+
+===== FINAL BITCOIN MARKET SENTIMENT =====
+TIMESTAMP ===== (2025-07-05 06:14:42)
+very bullish: 30.00%
+bullish: 30.00%
+neutral: 22.50%
+bearish: 10.00%
+very bearish: 7.50%
+
+===== FINAL BITCOIN MARKET SENTIMENT =====
+TIMESTAMP ===== (2025-07-05 06:20:51)
+very bullish: 20.00%
+bullish: 35.00%
+neutral: 22.50%
+bearish: 12.50%
+very bearish: 10.00%
+
+===== FINAL BITCOIN MARKET SENTIMENT =====
+TIMESTAMP ===== (2025-07-05 06:26:34)
+very bullish: 20.00%
+bullish: 35.00%
+neutral: 22.50%
+bearish: 15.00%
+very bearish: 7.50%
+
+===== FINAL BITCOIN MARKET SENTIMENT =====
+TIMESTAMP ===== (2025-07-05 06:32:41)
+very bullish: 20.00%
+bullish: 30.00%
+neutral: 25.00%
+bearish: 15.00%
+very bearish: 10.00%

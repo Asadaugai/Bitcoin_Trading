@@ -1,10 +1,68 @@
+# Extracting the tweets of multiple persons using API
+'''import requests
+from binance_data import fetch_binance_metrics
+
+# Your Bearer Token here
+BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAALRN1AEAAAAA8v97mac%2FO3anaQ%2FuzzmWCCXUUf8%3DukMJO681p60PtiE6j358HETIM4kKegbjZvFK9H16EI7aObdyCX"  # Replace with your actual bearer token
+
+# Headers for auth
+headers = {
+    "Authorization": f"Bearer {BEARER_TOKEN}"
+}
+
+def get_user_id(username):
+    url = f"https://api.twitter.com/2/users/by/username/{username}"
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()["data"]["id"]
+    else:
+        print(f"Failed to fetch user ID for {username}: {response.text}")
+        return None
+
+def get_user_tweets(user_id, count=5):
+    url = f"https://api.twitter.com/2/users/{user_id}/tweets?max_results={count}&tweet.fields=text"
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return [tweet['text'] for tweet in response.json().get("data", [])]
+    else:
+        print(f"Failed to fetch tweets for user ID {user_id}: {response.text}")
+        return []
+
+def get_elon_musk_tweets(username, count=5):
+    user_id = get_user_id(username)
+    if user_id:
+        return get_user_tweets(user_id, count)
+    return []
+
+def main():
+    users =['elonmusk','VitalikButerin','saylor','cz_binance','jack','APompliano','100trillionUSD','brian_armstrong','BarrySilbert','tyler','ErikVoorhees','cameron','maxkeiser','cryptomanran','adam3us','CaitlinLong_']
+    #users = ['saylor']  # Same default user as in tester
+    tweet_dic = {}
+    try:
+        for username in users:
+            tweets = get_elon_musk_tweets(username, count=5)
+            tweet_dic[username] = tweets
+        
+        # Fetch market data
+        market_data = fetch_binance_metrics()
+        print(tweet_dic)
+        return {"tweets": tweet_dic, "market_data": market_data}
+        
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return {"tweets": tweet_dic, "market_data": None}
+
+if __name__ == "__main__":
+    main()'''
+
+
 # Extracting the tweets of multiple persons using Webscraping
 # Without TRB
 from selenium import webdriver
 from transformers import TextClassificationPipeline, AutoModelForSequenceClassification, AutoTokenizer
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from binance_data import fetch_binance_data
+from binance_data import fetch_binance_metrics
 import time
 
 def init_driver(headless=False):
@@ -36,7 +94,7 @@ def main():
     driver = init_driver()
     #users =['realDonaldTrump','saylor','jack','cz_binance','VitalikButerin','aantonop','jpmorgan','nayibbukele','CathieDWood']
     #users =['elonmusk','VitalikButerin','saylor','cz_binance','jack','APompliano','100trillionUSD','brian_armstrong','BarrySilbert','tyler','ErikVoorhees','cameron','maxkeiser','cryptomanran','adam3us','CaitlinLong_']
-    users =['maxkeiser']
+    users =['saylor']
 
     tweet_dic = {}
     try:
@@ -47,7 +105,7 @@ def main():
 
         
         # Fetch market data
-        market_data = fetch_binance_data()
+        market_data = fetch_binance_metrics()
         print(tweet_dic)
         return {"tweets": tweet_dic, "market_data": market_data}
         
@@ -64,7 +122,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
 
 
 
@@ -162,7 +219,7 @@ def get_user_tweets(user_id, limit=5):
 
 # Fetch Elon Musk's tweets
 def get_elon_tweets(limit=5):
-    username = "realDonaldTrump"
+    username = "cryptomanran"
     #username = "xai"
     print(f"\n🔍 Tweets by @{username}:")
     user_id = get_user_id(username)
